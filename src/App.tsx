@@ -34,6 +34,12 @@ function App() {
     localStorage.setItem('expenses', JSON.stringify(updatedData)); // 儲存至 localStorage
   };
 
+  // 清除 localStorage 資料
+  const clearStorage = () => {
+    localStorage.removeItem('expenses'); // 清除 localStorage 中的資料
+    setData([]); // 清空當前應用狀態
+  };
+
   // 匯出今日花費的函式
   const exportToday = () => {};
 
@@ -101,13 +107,22 @@ function App() {
       >
         新增花費
       </button>
-      <button
-        onClick={exportToday}
-        className={`${styles.btn} ${styles.btnPrimary}`}
-      >
-        匯出今日花費
-      </button>
+
       <h2>今日花費</h2>
+      <div className={styles.btnGroup}>
+        <button
+          onClick={exportToday}
+          className={`${styles.btn} ${styles.btnPrimary}`}
+        >
+          匯出今日花費
+        </button>
+        <button
+          onClick={clearStorage}
+          className={`${styles.btn} ${styles.btnClean}`}
+        >
+          清除 Storage
+        </button>
+      </div>
       <div className={styles.expenseList}>
         {data &&
           data.map((entry: Expense, index) => (
