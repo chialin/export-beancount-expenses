@@ -1,5 +1,4 @@
 .container {
-  min-width: 600px;
   background-color: #cac6bd;
   color: #333; /* 使用稍深的文字顏色 */
   padding: 20px;
@@ -98,6 +97,10 @@ h2 {
 }
 
 @media (max-width: 600px) {
+  .container {
+    width: 100%; /* 手機裝置上寬度設為 100% */
+    padding: 15px; /* 可選：適當調整內邊距 */
+  }
   .expenseItem {
     grid-template-columns: 1fr;
     gap: 8px;

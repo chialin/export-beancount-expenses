@@ -4,6 +4,7 @@ import { expenses } from './constants/expenses'; // 解析出的花費資料
 import { Expense } from './types/expense';
 import formatDate from './libs/formatDate';
 import styles from './styles/ExpenseManager.module.css';
+import './App.css';
 
 function App() {
   const [data, setData] = useState<Expense[]>([]);
