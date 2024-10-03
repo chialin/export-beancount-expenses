@@ -40,11 +40,29 @@ function App() {
     setData([]); // 清空當前應用狀態
   };
 
-  // 匯出今日花費的函式
-  const exportToday = () => {};
+  // 將資料匯出成 Beancount 格式
+  const exportToday = () => {
+    const beancountExport = data
+      .map((entry) => {
+        return `${entry.date} * "${entry.expenseType}"
+  ${entry.account}  ${(-entry.amount).toFixed(2)} TWD
+  ${entry.expenseType}`;
+      })
+      .join('\n\n'); // 用換行符號分隔每一筆交易
+
+    // 複製到剪貼簿
+    navigator.clipboard
+      .writeText(beancountExport)
+      .then(() => {
+        alert('Beancount 資料已成功複製到剪貼簿！');
+      })
+      .catch((err) => {
+        console.error('複製失敗', err);
+      });
+  };
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <h1>每日花費紀錄</h1>
 
       <h2>新增花費</h2>
@@ -108,21 +126,24 @@ function App() {
         新增花費
       </button>
 
-      <h2>今日花費</h2>
-      <div className={styles.btnGroup}>
-        <button
-          onClick={exportToday}
-          className={`${styles.btn} ${styles.btnPrimary}`}
-        >
-          匯出今日花費
-        </button>
-        <button
-          onClick={clearStorage}
-          className={`${styles.btn} ${styles.btnClean}`}
-        >
-          清除 Storage
-        </button>
+      <div className={styles.expenseHeader}>
+        <h2>今日花費</h2>
+        <div className={styles.btnGroup}>
+          <button
+            onClick={exportToday}
+            className={`${styles.btn} ${styles.btnPrimary}`}
+          >
+            複製
+          </button>
+          <button
+            onClick={clearStorage}
+            className={`${styles.btn} ${styles.btnClean}`}
+          >
+            清除 Storage
+          </button>
+        </div>
       </div>
+
       <div className={styles.expenseList}>
         {data &&
           data.map((entry: Expense, index) => (
