@@ -2,21 +2,25 @@ import { useEffect, useState } from 'react';
 import { assetAccounts } from './constants/assetAccounts'; // 資產帳號
 import { expenses } from './constants/expenses'; // 解析出的花費資料
 import { Expense } from './types/expense';
+import formatDate from './libs/formatDate';
 import styles from './styles/ExpenseManager.module.css';
 
 function App() {
   const [data, setData] = useState<Expense[]>([]);
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(formatDate(new Date()));
   const [account, setAccount] = useState(assetAccounts[0]);
   const [expenseType, setExpenseType] = useState(expenses[0]);
   const [amount, setAmount] = useState(0);
 
+  // 讀取 localStorage 資料
   useEffect(() => {
-    const today = new Date().toISOString().split('T')[0]; // 取得 YYYY-MM-DD 格式
-    setDate(today);
+    const savedData = localStorage.getItem('expenses');
+    if (savedData) {
+      setData(JSON.parse(savedData));
+    }
   }, []);
 
-  // 新增花費的函式
+  // 新增花費並存入 localStorage
   const addExpense = () => {
     const newExpense: Expense = {
       date,
@@ -24,7 +28,10 @@ function App() {
       expenseType,
       amount,
     };
-    setData([...data, newExpense]);
+
+    const updatedData = [...data, newExpense];
+    setData(updatedData);
+    localStorage.setItem('expenses', JSON.stringify(updatedData)); // 儲存至 localStorage
   };
 
   // 匯出今日花費的函式
