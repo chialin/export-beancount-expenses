@@ -23,6 +23,9 @@ function App() {
 
   // 新增花費並存入 localStorage
   const addExpense = () => {
+    if (amount === 0) {
+      return;
+    }
     const newExpense: Expense = {
       date,
       account,
