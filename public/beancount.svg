@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <!-- 正方形的矩形 -->
+  <rect x="16" y="16" width="32" height="32" rx="4" ry="4" stroke="black" stroke-width="2" fill="none"/>
+  
+  <!-- 箭頭符號，表示匯出，位於 B 旁邊 -->
+  <path d="M38 38 L44 38 M42 36 L44 38 L42 40" stroke="black" stroke-width="2" fill="none"/>
+  
+  <!-- 圓點，象徵財務追蹤 -->
+  <circle cx="32" cy="22" r="2" fill="black"/>
+
+  <!-- 向下位移的 B 字樣 -->
+  <text x="27" y="41" font-family="Arial" font-size="16" fill="black">B</text>
+</svg>
