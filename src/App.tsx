@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { assetAccounts } from './constants/assetAccounts'; // 資產帳號
-import { expenses } from './constants/expenses'; // 解析出的花費資料
+import { liabilities } from './constants/liabilities';
+
+import { expenses } from './constants/expenses';
 import { Expense } from './types/expense';
 import formatDate from './libs/formatDate';
+
 import styles from './styles/ExpenseManager.module.css';
 import './App.css';
 
@@ -67,6 +70,8 @@ function App() {
       });
   };
 
+  const accounts = [...assetAccounts, ...liabilities];
+
   return (
     <div className={styles.container}>
       <h1>每日花費紀錄</h1>
@@ -101,7 +106,7 @@ function App() {
             onChange={(e) => setAccount(e.target.value)}
             className={`${styles.formControl} form-select`}
           >
-            {assetAccounts.map((acc, index) => (
+            {accounts.map((acc, index) => (
               <option key={index} value={acc}>
                 {acc}
               </option>
