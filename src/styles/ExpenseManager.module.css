@@ -81,9 +81,14 @@ h2 {
   padding: 12px;
   border-radius: 6px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 2fr;
 }
 
+.transaction {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .expenseDetail {
   margin-top: 10px; /* 調整間距 */
   display: flex; /* 可以設定 flex 排版來調整內部的對齊方式 */

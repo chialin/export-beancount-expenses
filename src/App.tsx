@@ -167,12 +167,15 @@ function App() {
               <span className={styles.date}>{entry.date}</span>
               <span className={styles.date}>{entry.expenseName}</span>
               <div className={styles.row}>
-                <span className={styles.account}>{entry.account}</span>
+                <div className={styles.transaction}>
+                  <span className={styles.account}>{entry.account}</span>
+                  <span className={styles.money}>{`-${entry.amount.toFixed(
+                    2
+                  )}`}</span>
+                </div>
+
                 <span className={styles.expenseType}>{entry.expenseType}</span>
               </div>
-              <span className={styles.money}>{`-${entry.amount.toFixed(
-                2
-              )}`}</span>
             </div>
           ))}
       </div>
