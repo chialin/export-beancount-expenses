@@ -12,6 +12,7 @@ function App() {
   const [account, setAccount] = useState(assetAccounts[0]);
   const [expenseType, setExpenseType] = useState(expenses[0]);
   const [amount, setAmount] = useState(0);
+  const [expenseName, setExpenseName] = useState('');
 
   // 讀取 localStorage 資料
   useEffect(() => {
@@ -27,6 +28,7 @@ function App() {
       return;
     }
     const newExpense: Expense = {
+      expenseName,
       date,
       account,
       expenseType,
@@ -48,7 +50,7 @@ function App() {
   const exportToday = () => {
     const beancountExport = data
       .map((entry) => {
-        return `${entry.date} * "${entry.expenseType}"
+        return `${entry.date} * "${entry.expenseName}"
   ${entry.account}  ${(-entry.amount).toFixed(2)} TWD
   ${entry.expenseType}`;
       })
@@ -78,6 +80,16 @@ function App() {
             value={date}
             onChange={(e) => setDate(e.target.value)}
             className={`${styles.formControl} form-control`}
+          />
+        </div>
+      </div>
+      <div className="row mb-3">
+        <label className="col-12">花費項目：</label>
+        <div className="col-12">
+          <input
+            type="text"
+            onChange={(e) => setExpenseName(e.target.value)}
+            className={styles.formControl}
           />
         </div>
       </div>
@@ -153,11 +165,14 @@ function App() {
           data.map((entry: Expense, index) => (
             <div key={index} className={`${styles.expenseItem} row`}>
               <span className={styles.date}>{entry.date}</span>
+              <span className={styles.date}>{entry.expenseName}</span>
               <div className={styles.row}>
                 <span className={styles.account}>{entry.account}</span>
                 <span className={styles.expenseType}>{entry.expenseType}</span>
               </div>
-              <span className={styles.money}>{entry.amount}</span>
+              <span className={styles.money}>{`-${entry.amount.toFixed(
+                2
+              )}`}</span>
             </div>
           ))}
       </div>
