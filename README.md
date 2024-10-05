@@ -2,6 +2,8 @@
 
 Beancount Expense Tracker is a web application that helps you log daily expenses and automatically generates transactions in the [Beancount](https://beancount.github.io/) format. This tool allows you to record expenses in real time and export them for easy integration with your Beancount financial records.
 
+> co-work with chatGPT
+
 ## Beancount Example
 
 Once you log an expense, the application will generate a Beancount transaction like the following:
@@ -10,7 +12,7 @@ Once you log an expense, the application will generate a Beancount transaction l
 
 2024-10-03 \* "Expense"
 Assets:Cash -100.00 TWD
-Expenses:Food 100.00 TWD
+Expenses:Food
 
 ```
 
