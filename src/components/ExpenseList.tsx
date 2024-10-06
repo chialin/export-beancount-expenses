@@ -20,7 +20,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
         </Heading>
         <Flex>
           <Button colorScheme="teal" mr={3} onClick={onExport}>
-            複製
+            複製 Beancount 格式
           </Button>
           <Button colorScheme="red" onClick={onClear}>
             清除 Storage

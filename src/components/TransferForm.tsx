@@ -31,26 +31,6 @@ const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
     return parseFloat(value as string).toFixed(2);
   };
 
-  const handleCopy = () => {
-    const date = new Date().toISOString().split('T')[0];
-    const formattedAmount = formatAmount(amount);
-    const formattedFee = fee ? formatAmount(fee) : '';
-    const beancountFormat = `${date} * "${purpose || '轉帳'}"
-  ${sourceAccount}  -${formattedAmount}
-  ${targetAccount}  ${formattedAmount}
-  ${fee ? `${TRANSFER_FEE}  -${formattedFee}` : ''}`;
-
-    navigator.clipboard.writeText(beancountFormat).then(() => {
-      toast({
-        title: '已複製到剪貼簿',
-        description: 'Beancount 格式的轉帳資訊已成功複製。',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-      });
-    });
-  };
-
   const handleTransfer = () => {
     if (!sourceAccount || !targetAccount || amount === '') {
       toast({
@@ -142,9 +122,6 @@ const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
       </Box>
       <Button colorScheme="teal" onClick={handleTransfer}>
         新增轉帳
-      </Button>
-      <Button colorScheme="blue" onClick={handleCopy}>
-        複製 Beancount 格式
       </Button>
     </VStack>
   );
