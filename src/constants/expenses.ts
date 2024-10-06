@@ -11,4 +11,6 @@ export const expenses = [
   'Expenses:Sport:Gym',
   'Expenses:Sport:Climbing',
   'Expenses:Podcast',
+  'Expenses:Relationships:Partner',
+  'Expenses:Entertainment',
 ];
