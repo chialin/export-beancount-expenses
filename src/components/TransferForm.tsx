@@ -10,9 +10,10 @@ import {
 } from '@chakra-ui/react';
 import { assetAccounts } from '../constants/assetAccounts';
 import { liabilities } from '../constants/liabilities';
+import { handleAddExpense } from '../utils/expenseUtils';
 
 interface TransferFormProps {
-  onTransfer: () => void;
+  onTransfer: (transaction: string) => void;
 }
 const TRANSFER_FEE = 'Expenses:TransferFee';
 const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
@@ -47,6 +48,37 @@ const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
         isClosable: true,
       });
     });
+  };
+
+  const handleTransfer = () => {
+    if (!sourceAccount || !targetAccount || amount === '0') {
+      toast({
+        title: '新增轉帳資料失敗',
+        description: '請確保所有欄位都已正確填寫，且金額不為 0。',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      });
+      return;
+    }
+    const date = new Date().toISOString().split('T')[0];
+    const formattedAmount = formatAmount(amount);
+    const newExpense: Expense = {
+      expenseName: purpose || '轉帳',
+      date: date,
+      account: sourceAccount,
+      expenseType: TRANSFER_FEE,
+      amount: parseFloat(formattedAmount),
+    };
+    const existingData = JSON.parse(localStorage.getItem('expenses') || '[]');
+    handleAddExpense(newExpense, existingData, (updatedData) => {
+      localStorage.setItem('expenses', JSON.stringify(updatedData));
+    });
+    const beancountFormat = `${date} * "${purpose || '轉帳'}"
+    ${sourceAccount}    -${formattedAmount}
+    ${targetAccount}    ${formattedAmount}
+    ${fee ? `${TRANSFER_FEE}    -${formatAmount(fee)}` : ''}`;
+    onTransfer(beancountFormat);
   };
 
   return (
@@ -88,7 +120,7 @@ const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
         <Input
           type="number"
           value={amount}
-          onChange={(e) => setAmount(parseFloat(e.target.value).toFixed(2))}
+          onChange={(e) => setAmount(e.target.value)}
         />
       </Box>
       <Box>
@@ -96,7 +128,7 @@ const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
         <Input
           type="number"
           value={fee}
-          onChange={(e) => setFee(parseFloat(e.target.value).toFixed(2))}
+          onChange={(e) => setFee(e.target.value)}
         />
       </Box>
       <Box>
@@ -107,8 +139,8 @@ const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
           onChange={(e) => setPurpose(e.target.value)}
         />
       </Box>
-      <Button colorScheme="teal" onClick={onTransfer}>
-        執行轉帳
+      <Button colorScheme="teal" onClick={handleTransfer}>
+        新增轉帳
       </Button>
       <Button colorScheme="blue" onClick={handleCopy}>
         複製 Beancount 格式

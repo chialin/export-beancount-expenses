@@ -62,7 +62,7 @@ export const handleTransfer = (
   }) => void
 ) => {
   toast({
-    title: '轉帳功能尚未實作',
+    title: '新增轉帳資訊成功',
     status: 'info',
     duration: 2000,
     isClosable: true,
