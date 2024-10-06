@@ -14,21 +14,29 @@ import { liabilities } from '../constants/liabilities';
 interface TransferFormProps {
   onTransfer: () => void;
 }
-
+const TRANSFER_FEE = 'Expenses:TransferFee';
 const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
   const [sourceAccount, setSourceAccount] = useState('');
   const [targetAccount, setTargetAccount] = useState('');
   const [amount, setAmount] = useState<number | string>('');
   const [purpose, setPurpose] = useState('');
+  const [fee, setFee] = useState<number | string>('');
   const toast = useToast();
 
   const accounts = [...assetAccounts, ...liabilities];
 
+  const formatAmount = (value: number | string) => {
+    return parseFloat(value as string).toFixed(2);
+  };
+
   const handleCopy = () => {
     const date = new Date().toISOString().split('T')[0];
+    const formattedAmount = formatAmount(amount);
+    const formattedFee = fee ? formatAmount(fee) : '';
     const beancountFormat = `${date} * "${purpose || '轉帳'}"
-  ${sourceAccount}  -${amount}
-  ${targetAccount}`;
+  ${sourceAccount}  -${formattedAmount}
+  ${targetAccount}  ${formattedAmount}
+  ${fee ? `${TRANSFER_FEE}  -${formattedFee}` : ''}`;
 
     navigator.clipboard.writeText(beancountFormat).then(() => {
       toast({
@@ -80,7 +88,15 @@ const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
         <Input
           type="number"
           value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          onChange={(e) => setAmount(parseFloat(e.target.value).toFixed(2))}
+        />
+      </Box>
+      <Box>
+        <Text mb={1}>手續費：</Text>
+        <Input
+          type="number"
+          value={fee}
+          onChange={(e) => setFee(parseFloat(e.target.value).toFixed(2))}
         />
       </Box>
       <Box>
