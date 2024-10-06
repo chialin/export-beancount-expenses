@@ -11,6 +11,7 @@ import {
 import { assetAccounts } from '../constants/assetAccounts';
 import { liabilities } from '../constants/liabilities';
 import { handleAddExpense } from '../utils/expenseUtils';
+import { Expense } from '../types/expense';
 
 interface TransferFormProps {
   onTransfer: (transaction: string) => void;
@@ -51,7 +52,7 @@ const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
   };
 
   const handleTransfer = () => {
-    if (!sourceAccount || !targetAccount || amount === '0') {
+    if (!sourceAccount || !targetAccount || amount === '') {
       toast({
         title: '新增轉帳資料失敗',
         description: '請確保所有欄位都已正確填寫，且金額不為 0。',
@@ -68,7 +69,7 @@ const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
       date: date,
       account: sourceAccount,
       expenseType: TRANSFER_FEE,
-      amount: parseFloat(formattedAmount),
+      amount: Number(formattedAmount),
     };
     const existingData = JSON.parse(localStorage.getItem('expenses') || '[]');
     handleAddExpense(newExpense, existingData, (updatedData) => {

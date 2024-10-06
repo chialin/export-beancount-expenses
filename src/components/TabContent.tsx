@@ -3,7 +3,6 @@ import ExpenseForm from './ExpenseForm';
 import ExpenseList from './ExpenseList';
 import TransferForm from './TransferForm';
 import { Expense } from '../types/expense';
-import { useState } from 'react';
 
 interface TabContentProps {
   data: Expense[];
@@ -37,7 +36,6 @@ const TabContent: React.FC<TabContentProps> = ({
       <TabPanels>
         <TabPanel>
           <ExpenseForm onAddExpense={onAddExpense} />
-          <ExpenseList data={data} onExport={onExport} onClear={onClear} />
         </TabPanel>
         <TabPanel>
           <TransferForm onTransfer={handleTransfer} />

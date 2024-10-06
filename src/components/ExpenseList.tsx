@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Button, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Button, Text, Divider } from '@chakra-ui/react';
 import { Expense } from '../types/expense';
 
 interface ExpenseListProps {
@@ -31,8 +31,16 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
       <Box mt={4}>
         {data.length > 0 ? (
           data.map((entry: Expense, index) => (
-            <Box key={index} mb={2}>
+            <Box
+              key={index}
+              mb={2}
+              p={4}
+              bg={index % 2 === 0 ? 'gray.100' : 'white'}
+              borderRadius="md"
+              boxShadow="sm"
+            >
               <Text>{entry.date}</Text>
+              <Divider orientation="horizontal" />
               <Text>{entry.expenseName}</Text>
               <Flex justify="space-between">
                 <Text>{entry.account}</Text>

@@ -21,13 +21,30 @@ const App = () => {
     }
   }, []);
 
+  const handleClickAddExpense = (newExpense: Expense) => {
+    try {
+      handleAddExpense(newExpense, data, setData);
+      toast({
+        title: '新增資料成功！',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: `新增失敗-${error}`,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  };
+
   return (
     <Box p={5}>
       <TabContent
         data={data}
-        onAddExpense={(newExpense: Expense) =>
-          handleAddExpense(newExpense, data, setData)
-        }
+        onAddExpense={handleClickAddExpense}
         onExport={() => exportToday(data, toast)}
         onClear={() => clearStorage(setData)}
         onTransfer={() => handleTransfer(toast)}

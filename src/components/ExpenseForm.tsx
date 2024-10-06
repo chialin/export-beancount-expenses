@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { Input, Select, Button, Box, Text, VStack } from '@chakra-ui/react';
+import {
+  Input,
+  Select,
+  Button,
+  Box,
+  Text,
+  VStack,
+  useToast,
+} from '@chakra-ui/react';
 import { assetAccounts } from '../constants/assetAccounts';
 import { liabilities } from '../constants/liabilities';
 import { expenses } from '../constants/expenses';
@@ -13,23 +21,33 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [account, setAccount] = useState(assetAccounts[0]);
   const [expenseType, setExpenseType] = useState(expenses[0]);
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState('');
   const [expenseName, setExpenseName] = useState('');
+  const toast = useToast();
 
   const handleSubmit = () => {
-    if (amount === 0) return;
+    if (amount === '') {
+      toast({
+        title: '新增資料失敗',
+        description: '請確保所有欄位都已正確填寫，且金額不為 0。',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      });
+      return;
+    }
 
     const newExpense: Expense = {
       expenseName,
       date,
       account,
       expenseType,
-      amount,
+      amount: Number(amount),
     };
 
     onAddExpense(newExpense);
     setExpenseName(''); // 清空表單
-    setAmount(0); // 重置金額
+    setAmount(''); // 重置金額
   };
 
   const accounts = [...assetAccounts, ...liabilities];
@@ -78,7 +96,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
         <Text mb={1}>金額：</Text>
         <Input
           type="number"
-          onChange={(e) => setAmount(Number(e.target.value))}
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
         />
       </Box>
       <Button colorScheme="teal" onClick={handleSubmit}>
