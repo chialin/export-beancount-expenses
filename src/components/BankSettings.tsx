@@ -8,7 +8,7 @@ import {
   AbsoluteCenter,
   Heading,
 } from '@chakra-ui/react';
-import { liabilities } from '../constants/liabilities';
+import { assetAccounts } from '../constants/assetAccounts';
 import { useState } from 'react';
 
 const BankSettings: React.FC = () => {
@@ -33,7 +33,7 @@ const BankSettings: React.FC = () => {
           value={selectedAccount}
           onChange={(e) => setSelectedAccount(e.target.value)}
         >
-          {liabilities.map((acc, index) => (
+          {assetAccounts.map((acc, index) => (
             <option key={index} value={acc}>
               {acc}
             </option>
