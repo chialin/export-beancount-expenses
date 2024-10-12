@@ -23,7 +23,7 @@ interface CreditCardInfo {
   currentSpending: string;
 }
 
-const Settings: React.FC = () => {
+const CreditCardSettings: React.FC = () => {
   const [creditLimit, setCreditLimit] = useState('');
   const [currentSpending, setCurrentSpending] = useState('0');
   const [selectedAccount, setSelectedAccount] = useState('');
@@ -49,6 +49,14 @@ const Settings: React.FC = () => {
 
   return (
     <>
+      <Box position="relative" padding="10">
+        <Divider />
+        <AbsoluteCenter bg="white" px="4">
+          <Heading as="h2" size="md">
+            信用卡設定
+          </Heading>
+        </AbsoluteCenter>
+      </Box>
       <Box mb={4}>
         <Select
           placeholder="選擇帳號"
@@ -118,4 +126,4 @@ const Settings: React.FC = () => {
   );
 };
 
-export default Settings;
+export default CreditCardSettings;

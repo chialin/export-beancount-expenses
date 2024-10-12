@@ -22,14 +22,6 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
 }) => {
   return (
     <Box>
-      <Box position="relative" padding="10">
-        <Divider />
-        <AbsoluteCenter bg="white" px="4">
-          <Heading as="h2" size="md">
-            花費明細
-          </Heading>
-        </AbsoluteCenter>
-      </Box>
       <Box mt={5}>
         <Flex justify="space-between" align="center">
           <Flex>
@@ -41,7 +33,14 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
             </Button>
           </Flex>
         </Flex>
-
+        <Box position="relative" padding="10">
+          <Divider />
+          <AbsoluteCenter bg="white" px="4">
+            <Heading as="h2" size="md">
+              消費明細
+            </Heading>
+          </AbsoluteCenter>
+        </Box>
         <Box mt={4}>
           {data.length > 0 ? (
             data.map((entry: Expense, index) => (
