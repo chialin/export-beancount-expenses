@@ -2,6 +2,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import ExpenseForm from './ExpenseForm';
 import ExpenseList from './ExpenseList';
 import TransferForm from './TransferForm';
+import Settings from './CreditCardSettings';
 import { Expense } from '../types/expense';
 
 interface TabContentProps {
@@ -31,6 +32,7 @@ const TabContent: React.FC<TabContentProps> = ({
         <Tab>每日花費</Tab>
         <Tab>轉帳功能</Tab>
         <Tab>今日交易明細</Tab>
+        <Tab>信用卡設定</Tab>
       </TabList>
 
       <TabPanels>
@@ -42,6 +44,9 @@ const TabContent: React.FC<TabContentProps> = ({
         </TabPanel>
         <TabPanel>
           <ExpenseList data={data} onExport={onExport} onClear={onClear} />
+        </TabPanel>
+        <TabPanel>
+          <Settings />
         </TabPanel>
       </TabPanels>
     </Tabs>
