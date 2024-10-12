@@ -27,7 +27,7 @@ const TabContent: React.FC<TabContentProps> = ({
   };
 
   return (
-    <Tabs variant="enclosed" colorScheme="teal">
+    <Tabs variant="soft-rounded" colorScheme="green">
       <TabList>
         <Tab>每日花費</Tab>
         <Tab>轉帳功能</Tab>
