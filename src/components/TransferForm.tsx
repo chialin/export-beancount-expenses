@@ -50,6 +50,7 @@ const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
       account: sourceAccount,
       expenseType: TRANSFER_FEE,
       amount: Number(formattedAmount),
+      purpose,
     };
     const existingData = JSON.parse(localStorage.getItem('expenses') || '[]');
     handleAddExpense(newExpense, existingData, (updatedData) => {
