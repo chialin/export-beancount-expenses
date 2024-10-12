@@ -23,6 +23,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
   const [expenseType, setExpenseType] = useState(expenses[0]);
   const [amount, setAmount] = useState('');
   const [expenseName, setExpenseName] = useState('');
+  const [purpose, setPurpose] = useState('');
   const toast = useToast();
 
   const handleSubmit = () => {
@@ -43,6 +44,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
       account,
       expenseType,
       amount: Number(amount),
+      purpose,
     };
 
     onAddExpense(newExpense);
@@ -70,6 +72,14 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
         />
       </Box>
       <Box>
+        <Text mb={1}>金額：</Text>
+        <Input
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+      </Box>
+      <Box>
         <Text mb={1}>帳號：</Text>
         <Select value={account} onChange={(e) => setAccount(e.target.value)}>
           {accounts.map((acc, index) => (
@@ -93,12 +103,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
         </Select>
       </Box>
       <Box>
-        <Text mb={1}>金額：</Text>
-        <Input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
+        <Text mb={1}>目的：</Text>
+        <Input value={purpose} onChange={(e) => setPurpose(e.target.value)} />
       </Box>
       <Button colorScheme="teal" onClick={handleSubmit}>
         新增花費

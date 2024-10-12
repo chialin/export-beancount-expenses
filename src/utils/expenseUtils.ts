@@ -26,9 +26,11 @@ export const exportToday = (
 ) => {
   const beancountExport = data
     .map((entry) => {
+      const purpose = entry.purpose && `;${entry.purpose}`;
       return `${entry.date} * "${entry.expenseName}"
   ${entry.account}  ${(-entry.amount).toFixed(2)} TWD
-  ${entry.expenseType}`;
+  ${entry.expenseType}
+  ${purpose}`;
     })
     .join('\n\n');
 
