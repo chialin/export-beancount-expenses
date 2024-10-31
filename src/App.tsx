@@ -8,7 +8,7 @@ const App = () => {
         display="flex"
         alignItems="center"
         mb={4}
-        bg="teal.100"
+        bg="teal.200"
         p={3}
         borderRadius="md"
       >
@@ -20,7 +20,7 @@ const App = () => {
             mr={3}
           />
         </Link>
-        <Text fontSize="xl" fontWeight="bold">
+        <Text fontSize="xl" fontWeight="bold" color="white">
           Beancount Expenses
         </Text>
       </Box>
