@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Export Beancount Expenses</title>
+    <link rel="icon" type="image/svg+xml" href="/beancount.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/beancount.svg" />
+    <link rel="icon" sizes="192x192" href="/beancount.svg" />
+    <link rel="icon" sizes="32x32" href="/beancount.svg" />
+    <link rel="icon" sizes="16x16" href="/beancount.svg" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6;
+        background-color: #f9f9f9;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      .hero.is-info {
+        background-color: #009688;
+      }
+      .button-primary {
+        background-color: #ff6600;
+        color: #fff;
+        padding: 15px 30px;
+        border: none;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+      }
+      .button-primary:hover {
+        background-color: #e55b00;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero is-info">
+      <div class="hero-body">
+        <div class="container">
+          <nav class="level">
+            <div class="level-left">
+              <img
+                src="/beancount.svg"
+                alt="Beancount Logo"
+                style="height: 160px; margin-right: 10px"
+              />
+              <div class="container is-flex is-align-items-center">
+                <h1 class="title">Export Beancount Expenses</h1>
+              </div>
+            </div>
+            <div class="level-right">
+              <ul class="level-item">
+                <li>
+                  <a href="#features" class="button is-light m-2">Features</a>
+                </li>
+                <li><a href="#usage" class="button is-light m-2">Usage</a></li>
+                <li>
+                  <a href="#github" class="button is-light m-2">GitHub</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="hero" class="hero is-medium is-light">
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <h2 class="title">
+              Effortlessly Convert Your Daily Expenses to Beancount Format
+            </h2>
+            <p class="subtitle">
+              A simple Vite React project designed to export daily expenses from
+              Beancount, using a fixed format for assets and expenses.
+            </p>
+            <a
+              href="https://github.com/chialin/export-beancount-expenses"
+              class="button is-primary"
+              >View on GitHub</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section">
+        <div class="container">
+          <h2 class="title">Features</h2>
+          <div class="columns is-multiline">
+            <div class="column is-half">
+              <div class="box">
+                <p>Easy-to-use interface for managing daily expenses</p>
+              </div>
+            </div>
+            <div class="column is-half">
+              <div class="box">
+                <p>Export transactions in Beancount format</p>
+              </div>
+            </div>
+            <div class="column is-half">
+              <div class="box">
+                <p>Supports fixed format for asset and expense tracking</p>
+              </div>
+            </div>
+            <div class="column is-half">
+              <div class="box">
+                <p>Built with Vite and React for fast performance</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="usage" class="section">
+        <div class="container">
+          <h2 class="title">How to Use</h2>
+          <div class="content">
+            <ol>
+              <li>Clone the repository from GitHub.</li>
+              <li>Install dependencies using <code>npm install</code>.</li>
+              <li>Run the project locally using <code>npm run dev</code>.</li>
+              <li>
+                Follow the on-screen instructions to input and export expenses.
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section id="github" class="section">
+        <div class="container has-text-centered">
+          <h2 class="title">Get Started</h2>
+          <p>
+            Check out the full project on GitHub to learn more and contribute:
+          </p>
+          <a
+            href="https://github.com/chialin/export-beancount-expenses"
+            class="button is-link m-4"
+            >GitHub Repository</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>&copy; 2024 Export Beancount Expenses. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
