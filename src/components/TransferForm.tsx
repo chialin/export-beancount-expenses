@@ -25,10 +25,6 @@ const TransferForm = () => {
 
   const accounts = [...assetAccounts, ...liabilities];
 
-  const formatAmount = (value: number | string) => {
-    return parseFloat(value as string).toFixed(2);
-  };
-
   const handleTransfer = () => {
     if (!sourceAccount || !targetAccount || amount === '') {
       toast({
@@ -41,16 +37,21 @@ const TransferForm = () => {
       return;
     }
     const date = new Date().toISOString().split('T')[0];
-    const formattedAmount = formatAmount(amount);
     const newExpense: Expense = {
       expenseName: purpose || '轉帳',
       date: date,
       account: sourceAccount,
       expenseType: TRANSFER_FEE,
-      amount: Number(formattedAmount),
+      amount: Number(amount),
       purpose,
     };
     addExpense(newExpense);
+    toast({
+      title: '新增轉帳資訊成功',
+      status: 'info',
+      duration: 2000,
+      isClosable: true,
+    });
   };
 
   return (

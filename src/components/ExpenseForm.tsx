@@ -46,6 +46,12 @@ const ExpenseForm = () => {
     };
 
     addExpense(newExpense);
+    toast({
+      title: '新增花費成功',
+      status: 'info',
+      duration: 2000,
+      isClosable: true,
+    });
     setExpenseName(''); // 清空表單
     setAmount(''); // 重置金額
   };
