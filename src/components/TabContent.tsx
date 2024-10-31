@@ -27,7 +27,7 @@ const TabContent = () => {
     <>
       <Tabs
         variant="soft-rounded"
-        colorScheme="green"
+        colorScheme="gray"
         index={tabIndex}
         onChange={setTabIndex}
       >
