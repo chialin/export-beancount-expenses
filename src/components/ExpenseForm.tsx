@@ -11,13 +11,11 @@ import {
 import { assetAccounts } from '../constants/assetAccounts';
 import { liabilities } from '../constants/liabilities';
 import { expenses } from '../constants/expenses';
-import { Expense } from '../types/expense';
+import { Expense } from '../types/Expense';
+import { useExpenseStore } from '../stores/useExpenseStore';
 
-interface ExpenseFormProps {
-  onAddExpense: (expense: Expense) => void;
-}
-
-const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
+const ExpenseForm = () => {
+  const { addExpense } = useExpenseStore();
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [account, setAccount] = useState(assetAccounts[0]);
   const [expenseType, setExpenseType] = useState(expenses[0]);
@@ -47,7 +45,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
       purpose,
     };
 
-    onAddExpense(newExpense);
+    addExpense(newExpense);
     setExpenseName(''); // 清空表單
     setAmount(''); // 重置金額
   };

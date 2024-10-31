@@ -6,29 +6,30 @@ import {
   Text,
   Divider,
   AbsoluteCenter,
+  useToast,
 } from '@chakra-ui/react';
-import { Expense } from '../types/expense';
+import { Expense } from '../types/Expense';
+import { useExpenseStore } from '../stores/useExpenseStore';
+import { copyToClipboard } from '../utils/clipboard';
 
-interface ExpenseListProps {
-  data: Expense[];
-  onExport: () => void;
-  onClear: () => void;
-}
+const ExpenseList = () => {
+  const { expenses, getBeancountFormat, clearExpenses } = useExpenseStore();
+  const toast = useToast();
 
-const ExpenseList: React.FC<ExpenseListProps> = ({
-  data,
-  onExport,
-  onClear,
-}) => {
+  const handleExport = () => {
+    const text = getBeancountFormat();
+    copyToClipboard({ text, toast });
+  };
+
   return (
     <Box>
       <Box mt={5}>
         <Flex justify="space-between" align="center">
           <Flex>
-            <Button colorScheme="teal" mr={3} onClick={onExport}>
+            <Button colorScheme="teal" mr={3} onClick={handleExport}>
               複製 Beancount 格式
             </Button>
-            <Button colorScheme="red" onClick={onClear}>
+            <Button colorScheme="red" onClick={clearExpenses}>
               清除 Storage
             </Button>
           </Flex>
@@ -42,8 +43,8 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
           </AbsoluteCenter>
         </Box>
         <Box mt={4}>
-          {data.length > 0 ? (
-            data.map((entry: Expense, index) => (
+          {expenses.length > 0 ? (
+            expenses.map((entry: Expense, index) => (
               <Box
                 key={index}
                 mb={2}

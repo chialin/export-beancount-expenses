@@ -10,14 +10,12 @@ import {
 } from '@chakra-ui/react';
 import { assetAccounts } from '../constants/assetAccounts';
 import { liabilities } from '../constants/liabilities';
-import { handleAddExpense } from '../utils/expenseUtils';
-import { Expense } from '../types/expense';
+import { Expense } from '../types/Expense';
+import { useExpenseStore } from '../stores/useExpenseStore';
 
-interface TransferFormProps {
-  onTransfer: (transaction: string) => void;
-}
 const TRANSFER_FEE = 'Expenses:TransferFee';
-const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
+const TransferForm = () => {
+  const { addExpense } = useExpenseStore();
   const [sourceAccount, setSourceAccount] = useState('');
   const [targetAccount, setTargetAccount] = useState('');
   const [amount, setAmount] = useState<number | string>('');
@@ -52,15 +50,7 @@ const TransferForm: React.FC<TransferFormProps> = ({ onTransfer }) => {
       amount: Number(formattedAmount),
       purpose,
     };
-    const existingData = JSON.parse(localStorage.getItem('expenses') || '[]');
-    handleAddExpense(newExpense, existingData, (updatedData) => {
-      localStorage.setItem('expenses', JSON.stringify(updatedData));
-    });
-    const beancountFormat = `${date} * "${purpose || '轉帳'}"
-    ${sourceAccount}    -${formattedAmount}
-    ${targetAccount}    ${formattedAmount}
-    ${fee ? `${TRANSFER_FEE}    -${formatAmount(fee)}` : ''}`;
-    onTransfer(beancountFormat);
+    addExpense(newExpense);
   };
 
   return (

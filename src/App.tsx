@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, useToast } from '@chakra-ui/react';
 import TabContent from './components/TabContent';
-import { Expense } from './types/expense';
+import { Expense } from './types/Expense';
 import {
   handleAddExpense,
   clearStorage,

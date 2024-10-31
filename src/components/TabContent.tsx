@@ -14,29 +14,10 @@ import TransferForm from './TransferForm';
 import CreditCardSettings from './CreditCardSettings';
 import BankSettings from './BankSettings';
 
-import { Expense } from '../types/expense';
 import { useState } from 'react';
 
-interface TabContentProps {
-  data: Expense[];
-  onAddExpense: (newExpense: Expense) => void;
-  onExport: () => void;
-  onClear: () => void;
-  onTransfer: (transaction: string) => void;
-}
-
-const TabContent: React.FC<TabContentProps> = ({
-  data,
-  onAddExpense,
-  onExport,
-  onClear,
-  onTransfer,
-}) => {
+const TabContent = () => {
   const [tabIndex, setTabIndex] = useState(0);
-
-  const handleTransfer = (transaction: string) => {
-    onTransfer(transaction);
-  };
 
   const handleMenuItemClick = (index: number) => {
     setTabIndex(index);
@@ -76,13 +57,13 @@ const TabContent: React.FC<TabContentProps> = ({
 
         <TabPanels>
           <TabPanel>
-            <ExpenseForm onAddExpense={onAddExpense} />
+            <ExpenseForm />
           </TabPanel>
           <TabPanel>
-            <TransferForm onTransfer={handleTransfer} />
+            <TransferForm />
           </TabPanel>
           <TabPanel>
-            <ExpenseList data={data} onExport={onExport} onClear={onClear} />
+            <ExpenseList />
           </TabPanel>
           <TabPanel>
             <CreditCardSettings />
