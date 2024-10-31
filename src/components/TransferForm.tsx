@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { assetAccounts } from '../constants/assetAccounts';
 import { liabilities } from '../constants/liabilities';
-import { Expense } from '../types/Expense';
+import { ExpenseType } from '../types/ExpenseType';
 import { useExpenseStore } from '../stores/useExpenseStore';
 
 const TRANSFER_FEE = 'Expenses:TransferFee';
@@ -37,7 +37,7 @@ const TransferForm = () => {
       return;
     }
     const date = new Date().toISOString().split('T')[0];
-    const newExpense: Expense = {
+    const newExpense: ExpenseType = {
       expenseName: purpose || '轉帳',
       date: date,
       account: sourceAccount,

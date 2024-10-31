@@ -8,7 +8,7 @@ import {
   AbsoluteCenter,
   useToast,
 } from '@chakra-ui/react';
-import { Expense } from '../types/Expense';
+import { ExpenseType } from '../types/ExpenseType';
 import { useExpenseStore } from '../stores/useExpenseStore';
 import { copyToClipboard } from '../utils/clipboard';
 
@@ -44,7 +44,7 @@ const ExpenseList = () => {
         </Box>
         <Box mt={4}>
           {expenses.length > 0 ? (
-            expenses.map((entry: Expense, index) => (
+            expenses.map((entry: ExpenseType, index) => (
               <Box
                 key={index}
                 mb={2}

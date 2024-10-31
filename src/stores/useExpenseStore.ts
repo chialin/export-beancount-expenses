@@ -1,21 +1,21 @@
 import { create } from 'zustand';
-import { Expense } from '../types/Expense';
+import { ExpenseType } from '../types/ExpenseType';
 
 interface ExpenseStore {
-  expenses: Expense[];
-  addExpense: (expense: Expense) => void;
+  expenses: ExpenseType[];
+  addExpense: (expense: ExpenseType) => void;
   removeExpense: (index: number) => void;
   clearExpenses: () => void;
   getBeancountFormat: () => string;
 }
 
-const loadExpensesFromLocalStorage = (): Expense[] => {
+const loadExpensesFromLocalStorage = (): ExpenseType[] => {
   if (typeof window === 'undefined') return [];
   const savedData = localStorage.getItem('expenses');
   return savedData ? JSON.parse(savedData) : [];
 };
 
-const saveExpensesToLocalStorage = (expenses: Expense[]) => {
+const saveExpensesToLocalStorage = (expenses: ExpenseType[]) => {
   localStorage.setItem('expenses', JSON.stringify(expenses));
 };
 

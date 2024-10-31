@@ -11,7 +11,7 @@ import {
 import { assetAccounts } from '../constants/assetAccounts';
 import { liabilities } from '../constants/liabilities';
 import { expenses } from '../constants/expenses';
-import { Expense } from '../types/Expense';
+import { ExpenseType } from '../types/ExpenseType';
 import { useExpenseStore } from '../stores/useExpenseStore';
 
 const ExpenseForm = () => {
@@ -36,7 +36,7 @@ const ExpenseForm = () => {
       return;
     }
 
-    const newExpense: Expense = {
+    const newExpense: ExpenseType = {
       expenseName,
       date,
       account,

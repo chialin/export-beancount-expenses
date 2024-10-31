@@ -1,4 +1,4 @@
-export interface Expense {
+export interface ExpenseType {
   expenseName: string;
   date: string; // 日期使用字串格式 'YYYY-MM-DD'
   account: string; // 帳戶名稱或帳號
