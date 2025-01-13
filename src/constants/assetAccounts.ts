@@ -4,4 +4,5 @@ export const assetAccounts: string[] = [
   'Assets:LINE-PAY-Money',
   'Assets:LINE-Point',
   'Assets:Bank:Richard:Main',
+  'Assets:Bank:SinoPac',
 ];
