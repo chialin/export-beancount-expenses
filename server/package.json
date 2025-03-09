@@ -1,0 +1,30 @@
+{
+  "name": "beancount-sync-server",
+  "version": "1.0.0",
+  "description": "本地 Beancount 同步服務",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && node scripts/copyPublic.js",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "@types/multer": "^1.4.12",
+    "chokidar": "^3.5.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^9.0.1",
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.0",
+    "@types/uuid": "^9.0.7",
+    "@types/ws": "^8.5.10",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.2"
+  }
+}

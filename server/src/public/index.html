@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beancount 同步服務設定</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          'Helvetica Neue', Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6;
+      }
+      .container {
+        background: #f5f5f5;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      .file-input-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+      }
+      .file-input-wrapper input[type='file'] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+      .file-input-button {
+        background: #4a90e2;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        display: inline-block;
+      }
+      .file-name {
+        margin-left: 10px;
+        color: #666;
+      }
+      .action-button {
+        background: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      .action-button:hover {
+        background: #45a049;
+      }
+      .action-button:disabled {
+        background: #cccccc;
+        cursor: not-allowed;
+      }
+      .status {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 4px;
+      }
+      .success {
+        background: #dff0d8;
+        color: #3c763d;
+      }
+      .error {
+        background: #f2dede;
+        color: #a94442;
+      }
+      .code-display {
+        background: #fff;
+        padding: 15px;
+        border-radius: 4px;
+        margin-top: 15px;
+        text-align: center;
+        font-size: 24px;
+        letter-spacing: 2px;
+      }
+      .categories-list {
+        margin-top: 20px;
+        background: white;
+        border-radius: 4px;
+        padding: 15px;
+      }
+      .category-item {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .category-item:last-child {
+        border-bottom: none;
+      }
+      .category-name {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 4px;
+      }
+      .category-fullname {
+        color: #666;
+        font-family: monospace;
+        font-size: 0.9em;
+        margin-bottom: 4px;
+      }
+      .category-date {
+        color: #888;
+        font-size: 0.85em;
+      }
+      .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Beancount 同步服務設定</h1>
+
+    <div class="container">
+      <form id="uploadForm">
+        <div class="form-group">
+          <label for="fileInput">選擇 Beancount 檔案：</label>
+          <div class="file-input-wrapper">
+            <button type="button" class="file-input-button">選擇檔案</button>
+            <input
+              type="file"
+              id="fileInput"
+              name="beancountFile"
+              accept=".bean"
+              onchange="handleFileSelect(event)"
+            />
+          </div>
+          <span id="fileName" class="file-name"></span>
+        </div>
+
+        <button
+          type="button"
+          class="action-button"
+          onclick="startService()"
+          id="startButton"
+          disabled
+        >
+          啟動服務
+        </button>
+      </form>
+
+      <div id="status" class="status" style="display: none"></div>
+      <div id="pairingCode" class="code-display" style="display: none"></div>
+
+      <div id="categoriesList" class="categories-list" style="display: none">
+        <h3>已定義的支出類別</h3>
+        <div id="categoriesContent" class="category-grid"></div>
+      </div>
+    </div>
+
+    <script>
+      let selectedFile = null;
+
+      function handleFileSelect(event) {
+        const file = event.target.files[0];
+        if (file) {
+          selectedFile = file;
+          document.getElementById('fileName').textContent = file.name;
+          document.getElementById('startButton').disabled = false;
+        } else {
+          selectedFile = null;
+          document.getElementById('fileName').textContent = '';
+          document.getElementById('startButton').disabled = true;
+        }
+      }
+
+      function displayCategories(categories) {
+        const categoriesDiv = document.getElementById('categoriesList');
+        const contentDiv = document.getElementById('categoriesContent');
+
+        if (categories && categories.length > 0) {
+          contentDiv.innerHTML = categories
+            .map((cat) => {
+              const shortName = cat.name.split(':').pop();
+              return `
+                <div class="category-item">
+                  <div class="category-name">${shortName}</div>
+                  <div class="category-fullname">${cat.fullName}</div>
+                  <div class="category-date">開始日期: ${cat.openDate}</div>
+                </div>
+              `;
+            })
+            .join('');
+          categoriesDiv.style.display = 'block';
+        } else {
+          contentDiv.innerHTML = '<p>沒有找到支出類別定義</p>';
+          categoriesDiv.style.display = 'block';
+        }
+      }
+
+      async function startService() {
+        const statusDiv = document.getElementById('status');
+        const pairingCodeDiv = document.getElementById('pairingCode');
+
+        if (!selectedFile) {
+          statusDiv.className = 'status error';
+          statusDiv.textContent = '請先選擇檔案';
+          statusDiv.style.display = 'block';
+          return;
+        }
+
+        try {
+          const formData = new FormData();
+          formData.append('beancountFile', selectedFile);
+
+          const response = await fetch('/api/start', {
+            method: 'POST',
+            body: formData,
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            statusDiv.className = 'status success';
+            statusDiv.textContent = '服務已成功啟動！';
+            statusDiv.style.display = 'block';
+
+            // 獲取配對碼
+            const pairResponse = await fetch('/api/pair');
+            const pairData = await pairResponse.json();
+
+            pairingCodeDiv.textContent = `配對碼：${pairData.pairingCode}`;
+            pairingCodeDiv.style.display = 'block';
+
+            // 獲取支出類別
+            const categoriesResponse = await fetch('/api/categories');
+            const categoriesData = await categoriesResponse.json();
+            displayCategories(categoriesData);
+          } else {
+            throw new Error(data.error || '啟動服務失敗');
+          }
+        } catch (error) {
+          statusDiv.className = 'status error';
+          statusDiv.textContent = `錯誤：${error.message}`;
+          statusDiv.style.display = 'block';
+          pairingCodeDiv.style.display = 'none';
+        }
+      }
+    </script>
+  </body>
+</html>
