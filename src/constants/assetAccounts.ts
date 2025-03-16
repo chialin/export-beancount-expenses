@@ -7,4 +7,5 @@ export const assetAccounts: string[] = [
   'Assets:Bank:Cube:FIN',
   'Assets:Bank:Richard:Main',
   'Assets:Bank:SinoPac',
+  'Assets:EasyWallet',
 ];
